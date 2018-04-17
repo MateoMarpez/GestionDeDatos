@@ -1,0 +1,101 @@
+VAR BASE RELATION TipoSocio (
+  IdTipoSocio Int,
+  Observaciones Varchar(50),
+  Monto Int,
+  PRIMARY KEY ( IdTipoSocio )
+)
+
+VAR BASE RELATION InscripcionSocio (
+  IdInscrSocio Int,
+  FechaDesde Date,
+  FechaHasta Date,
+  Monto Int,
+  IdTipoSocio Int,
+  NumeroSocio Int,
+  PRIMARY KEY ( IdInscrSocio ),
+  FOREIGN KEY ( IdTipoSocio ) REFERENCES TipoSocio,
+  FOREIGN KEY ( NumeroSocio ) REFERENCES Socio
+)
+
+VAR BASE RELATION Socio (
+  NumeroSocio Int,
+  FechaIngreso Date,
+  DNI Int,
+  Aderente Int,
+  PRIMARY KEY ( NumeroSocio ),
+  FOREIGN KEY  ( Aderente ) REFERENCES Socio,
+  FOREIGN KEY ( DNI ) REFERENCES Persona
+)
+
+VAR BASE RELATION Organiza (
+  NumeroSocio Int,
+  IdEvento Int,
+  PRIMARY KEY ( NumeroSocio, IdEvento ),
+  FOREIGN KEY ( NumeroSocio ) REFERENCES Socio,
+  FOREIGN KEY ( IdEvento ) REFERENCES Evento
+)
+
+VAR BASE RELATION Profesor (
+  IdProfesor Int,
+  FechaIngreso Date,
+  DNI Int,
+  PRIMARY KEY ( IdProfesor ),
+  FOREIGN KEY ( DNI ) REFERENCES Persona
+)
+
+VAR BASE RELATION Ejerce (
+  IdProfesor Int,
+  IdDeporte Int,
+  PRIMARY KEY ( IdProfesor, IdSocio ),
+  FOREIGN KEY (IdProfesor) REFERENCES Profesor,
+  FOREIGN KEY ( IdDeporte ) REFERENCES Deporte
+)
+
+VAR BASE RELATION Persona (
+  DNI Int,
+  Nombre Varchar(50),
+  Apellido Varchar(50),
+  Domicilio Varchar(50),
+  Telefono Int,
+  PRIMARY KEY ( DNI )
+)
+
+VAR BASE RELATION Deporte (
+  IdDeporte Int,
+  NombreDeporte Varchar(50),
+  Precio Int,
+  FechaComienzo Date,
+  FechaFinal Date,
+  IdInstalacion Int,
+  PRIMARY KEY ( IdDeporte ),
+  FOREIGN KEY (IdInstalacion) REFERENCES Instalacion
+)
+
+VAR BASE RELATION InscripcionDeporte (
+  IdInscDeporte Int,
+  FechaDesde Date,
+  FechaHasta Date,
+  Monto Int,
+  IdDeporte Int,
+  NumeroSocio Int,
+  PRIMARY KEY ( IdInscDeporte ),
+  FOREIGN KEY ( IdDeporte ) REFERENCES Deporte,
+  FOREIGN KEY ( NumeroSocio ) REFERENCES Socio
+)
+
+VAR BASE RELATION Evento (
+  IdEvento Int,
+  Nombre Varchar(50),
+  Fecha Date,
+  ImporteCobrado Int,
+  IdInstalacion Int,
+  PRIMARY KEY ( IdEvento ),
+  FOREIGN KEY ( IdInstalacion ) REFERENCES Instalacion
+)
+
+VAR BASE RELATION Instalacion (
+  IdInstalacion Int,
+  AlquilerHora Int,
+  Descripcion Varchar(50),
+  PRIMARY KEY ( IdInstalacion )
+)
