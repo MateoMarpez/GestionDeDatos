@@ -1,0 +1,66 @@
+VAR BASE RELATION Registro (
+	Numero int,
+	FechaEmision date,
+	FechaVencimiento date,
+	Dni int,
+	IdDom int,
+	IdGrup int,
+	PRIMARY KEY (Numero),
+	FOREING KEY (IdGrup) REFERENCES GrupoSanguineo,
+	FOREING KEY (IdDom) REFERENCES Domicilio,
+	FOREING KEY (Dni) REFERENCES Persona
+)
+VAR BASE RELATION Vehiculo (
+	Patente int,
+	Modelo int,
+	IdCat int,
+	Dni int,
+	PRIMARY KEY (Patente),
+	FOREING KEY (IdCat) REFERENCES (Categoria),
+	FOREING KEY (Dni) REFERENCES (Persona)
+)
+VAR BASE RELATION Infraccion (
+	NumeroInfracion int,
+	Codigo int,
+	FechaInfraccion date,
+	Observaciones varchar (50),
+	IdInf int,
+	Numero int,
+	PRIMARY KEY (NumeroInfraccion),
+	FOREING KEY (IdInf) REFERENCES TipoInfraccion,
+	FOREING KEY (Numero) REFERENCES Registro
+)
+VAR BASE RELATION Categoria (
+	IdCat int,
+	Descripccion int,
+	PRIMARY KEY (IdCat)
+)
+VAR BASE RELATION Domicilio (
+	IdDom int,
+	Calle varchar (50),
+	NumeroDom int,
+	PRIMARY KEY (IdDom)
+)
+VAR BASE RELATION Persona (
+	Dni int,
+	Nombre varchar (50),
+	Edad int,
+	PRIMARY KEY (Dni)
+)
+VAR BASE RELATION GrupoSanguineo (
+	IdGrup int,
+	TipoGrupo,
+	PRIMARY KEY (IdGrup)
+)
+VAR CHAR RELATION TipoInfraccion (
+	IdInf int,
+	Tipo varchar (50),
+	Monto int
+)
+VAR CHAR RELATION Posee (
+	Numero int,
+	IdCat,
+	PRIMARY KEY (Numero, IdCat)
+	FOREING KEY (Numero) REFERENCES Registro,
+	FOREING KEY (IdCat) REFERENCES Categoria
+)
