@@ -1,6 +1,7 @@
 Ejercicio 1 – PCs, Laptops e Impresoras
 a) ¿Qué modelos de PC tienen una velocidad de al menos 150?
-	select veloc >= 150 (pc);
+	% Obtenemos las pc que tienen al menos 150 de velocidad %
+	resultado := project cod (select veloc >= 150 (pc));
 
 b) ¿Qué fabricantes hacen laptops con un disco duro de al menos un gigabyte?
 	% Obtenemos los codigos de las laptop que tienen al menos 1GB de HDD%
